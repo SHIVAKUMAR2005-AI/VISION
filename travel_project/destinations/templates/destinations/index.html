@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Popular Destinations | Recommended Travel Explorer</title>
+  <meta name="description" content="Explore popular and recommended travel destinations worldwide. Filter by user interests, popularity ranking, and view detailed travel guides with itineraries." />
+
+  <!-- Google Fonts: Outfit (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{% static 'destinations/css/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'destinations/css/cards.css' %}" />
+  <link rel="stylesheet" href="{% static 'destinations/css/details.css' %}" />
+  <link rel="stylesheet" href="{% static 'destinations/css/states.css' %}" />
+</head>
+<body>
+
+  <!-- App Header / Navigation -->
+  <header class="app-header" id="app-header">
+    <div class="container">
+      <nav class="header-nav" aria-label="Main Navigation">
+        <a href="#" class="brand-logo" id="brand-logo-link" aria-label="WanderLuxe Destinations Home">
+          <div class="brand-icon">✈️</div>
+          <span>WanderLuxe</span>
+        </a>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary" id="btn-open-qa" type="button" aria-haspopup="dialog" aria-controls="qa-modal-overlay">
+            <span>🧪</span> <span>QA Test Suite</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container" id="main-content">
+    
+    <!-- LIST VIEW: Popular Destinations Main Page -->
+    <div id="main-list-view">
+      
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero-section">
+        <div class="hero-badge">
+          <span>✨</span> Curated Recommendations Engine
+        </div>
+        <h1 class="hero-title">
+          Explore <span class="gradient-text">Popular Destinations</span>
+        </h1>
+        <p class="hero-subtitle">
+          Discover top-rated travel destinations ranked dynamically by global popularity and tailored to your personal travel interests.
+        </p>
+
+        <!-- Subtask 2: Recommendation & User Interests Selector -->
+        <div class="interest-selector-card" id="interest-selector-panel">
+          <div class="interest-header">
+            <div class="interest-header-title">
+              <span>🎯</span>
+              <span>Tailor Recommendations by Your Interests</span>
+            </div>
+            <span class="interest-helper">Select categories to calculate live match scores</span>
+          </div>
+          <div class="interest-chips" id="interest-chips" role="group" aria-label="Select your travel interests">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Subtask 3: Testing & State Simulation Toolbar -->
+      <div class="sim-toolbar" id="sim-toolbar" aria-label="QA State Simulator">
+        <div class="sim-label">
+          <span>⚙️</span> <span>State Simulator (Subtask 3):</span>
+        </div>
+        <div class="sim-actions">
+          <button class="btn btn-secondary btn-xs" id="btn-sim-loading" type="button">
+            <span>⏳</span> Simulate Loading Skeleton
+          </button>
+          <button class="btn btn-outline-danger btn-xs" id="btn-sim-error" type="button">
+            <span>⚠️</span> Simulate API Error
+          </button>
+          <button class="btn btn-secondary btn-xs" id="btn-sim-reset" type="button">
+            <span>🔄</span> Reset Catalog
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <section class="controls-bar" id="controls-bar" aria-label="Search and Filter Controls">
+        <div class="controls-top">
+          <div class="search-wrapper">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input 
+              type="search" 
+              id="search-destinations" 
+              class="search-input" 
+              placeholder="Search by destination name, country, or keyword..." 
+              aria-label="Search destinations"
+              autocomplete="off"
+            />
+            <button class="search-clear" id="search-clear" type="button" aria-label="Clear search input">✕</button>
+          </div>
+
+          <div class="filter-actions">
+            <!-- Sort dropdown -->
+            <div class="sort-select-wrapper">
+              <select class="sort-select" id="sort-destinations" aria-label="Sort destinations by">
+                <option value="recommended">🌟 Recommended for You</option>
+                <option value="popularity">🔥 Highest Popularity</option>
+                <option value="rating">⭐ Highest Rated</option>
+                <option value="name">🔤 Name (A - Z)</option>
+              </select>
+            </div>
+
+            <!-- Grid / List view toggle (Subtask 1) -->
+            <div class="view-toggle" role="group" aria-label="View format toggle">
+              <button class="view-btn active" id="btn-view-grid" type="button" title="Card Grid View" aria-label="Card Grid View">
+                <span>🔲</span>
+              </button>
+              <button class="view-btn" id="btn-view-list" type="button" title="List View" aria-label="List View">
+                <span>📄</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="category-tabs" role="tablist" aria-label="Destination Categories">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- Results Count & Active Info -->
+      <div class="results-meta">
+        <span id="results-count" aria-live="polite">Loading destinations...</span>
+      </div>
+
+      <!-- Subtask 1: Destinations Container (Grid / List format) -->
+      <section 
+        class="destinations-grid" 
+        id="destinations-container" 
+        aria-label="Popular Destinations List"
+      >
+        <!-- Cards or States rendered dynamically by js/ui.js -->
+      </section>
+    </div>
+
+    <!-- Subtask 4: Dedicated Destination Details View -->
+    <div id="details-view" class="details-view-container" aria-label="Destination Details Page">
+      <!-- Rendered dynamically by js/ui.js when destination is selected -->
+    </div>
+
+  </main>
+
+  <!-- Subtask 5: QA Testing Suite Modal -->
+  <div class="qa-modal-overlay" id="qa-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+    <div class="qa-modal">
+      <div class="qa-header">
+        <div class="qa-title" id="qa-title">
+          <span>🧪</span> <span>QA Test Suite & Jira Subtask Validator</span>
+        </div>
+        <button class="qa-close-btn" id="qa-close-btn" type="button" aria-label="Close QA modal">✕</button>
+      </div>
+
+      <div class="qa-body">
+        <div class="qa-stats-bar">
+          <div class="qa-stat-card">
+            <div class="qa-stat-num passed" id="qa-stat-passed">0</div>
+            <div class="qa-stat-title">Passed</div>
+          </div>
+          <div class="qa-stat-card">
+            <div class="qa-stat-num failed" id="qa-stat-failed">0</div>
+            <div class="qa-stat-title">Failed</div>
+          </div>
+          <div class="qa-stat-card">
+            <div class="qa-stat-num total" id="qa-stat-total">0</div>
+            <div class="qa-stat-title">Total Tests</div>
+          </div>
+          <div class="qa-stat-card">
+            <div class="qa-stat-num coverage" id="qa-stat-coverage">0%</div>
+            <div class="qa-stat-title">Pass Rate</div>
+          </div>
+        </div>
+
+        <div class="qa-tests-list" id="qa-tests-list">
+          <!-- Populated by js/tests.js -->
+        </div>
+      </div>
+
+      <div class="qa-footer">
+        <div class="jira-badge">
+          <span>📋</span> Jira Story: View Popular Destinations
+        </div>
+        <button class="btn btn-primary" id="btn-run-all-tests" type="button">
+          <span>▶️</span> Run QA Tests
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <div class="jira-badge">
+        <span>📋</span> User Story: View Popular Destinations (5 Subtasks Implemented)
+      </div>
+      <p>© 2026 WanderLuxe Travel Destinations. Designed & Built for Jira Acceptance Criteria.</p>
+    </div>
+  </footer>
+
+  <!-- Application Script (ES Module) -->
+  <script type="module" src="{% static 'destinations/js/app.js' %}"></script>
+</body>
+</html>

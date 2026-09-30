@@ -1,0 +1,20 @@
+{
+  "name": "view-popular-destinations",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Popular and recommended travel destinations web application with ranking, state handling, details view, and test suite.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/destination.test.js"
+  },
+  "keywords": [
+    "travel",
+    "destinations",
+    "recommendation",
+    "jira",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "MIT"
+}
