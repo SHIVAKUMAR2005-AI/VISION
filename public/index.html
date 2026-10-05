@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Production User Profile Management - View and manage personal information, contact details, and account settings.">
+  <title>Manage User Profile | Enterprise Platform</title>
+
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Application Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/toast.css">
+</head>
+<body>
+
+  <!-- App Shell -->
+  <div class="app-wrapper">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar" aria-label="Primary Navigation">
+      <div class="sidebar-header">
+        <div class="brand-logo-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">UserSphere</span>
+          <span class="brand-badge">Enterprise Edition</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Modules</div>
+        
+        <a href="#dashboard" class="nav-item" data-tab-target="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#profile" class="nav-item active" data-tab-target="personal" aria-current="page">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>User Profile</span>
+          <span class="nav-badge-pill">Active</span>
+        </a>
+
+        <a href="#security" class="nav-item" data-tab-target="security">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Security & Auth</span>
+        </a>
+
+        <div class="nav-section-title" style="margin-top: 1rem;">System</div>
+
+        <a href="#settings" class="nav-item" data-tab-target="preferences">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Preferences</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar User Session Switcher (Demonstrating Multi-User Isolation) -->
+      <div class="sidebar-footer">
+        <div class="user-switch-bar">
+          <span>Active Session</span>
+          <button id="btn-switch-account" class="btn-switch-account" title="Switch account to test multi-user profile isolation">
+            Switch User
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="app-main">
+
+      <!-- Topbar Header -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+            <span>Platform</span>
+            <span class="breadcrumb-separator">/</span>
+            <span>User Management</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Manage Profile</span>
+          </nav>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Dark/Light Mode Switcher -->
+          <button id="theme-toggle-btn" class="icon-action-btn" aria-label="Switch dark or light mode" title="Toggle theme">
+            <span id="theme-toggle-icon"></span>
+          </button>
+
+          <!-- Notification Bell -->
+          <button class="icon-action-btn" aria-label="Notifications" title="Notifications">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge-dot"></span>
+          </button>
+
+          <!-- Topbar Current User Pill -->
+          <div class="topbar-user-profile" id="topbar-user-profile" title="View profile info">
+            <img id="topbar-avatar" class="topbar-avatar" src="assets/images/avatar.jpg" alt="User Avatar" style="display: none;">
+            <div id="topbar-avatar-fallback" class="topbar-avatar-initials">AS</div>
+            <span id="topbar-user-name" class="topbar-user-name">Loading...</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page Content -->
+      <main class="page-content-wrapper">
+
+        <!-- Page Header -->
+        <section class="profile-page-header">
+          <div class="profile-page-title-group">
+            <h1 class="profile-page-title">
+              <span>My Profile</span>
+            </h1>
+            <p class="profile-page-subtitle">Manage your personal information, contact numbers, and workspace identity.</p>
+          </div>
+
+          <!-- Edit Mode Global Banner -->
+          <div id="edit-mode-banner" class="edit-mode-banner" role="region" aria-label="Edit Profile Mode">
+            <div class="edit-banner-info">
+              <div class="edit-banner-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="edit-banner-title">Editing Profile Information</div>
+                <div class="edit-banner-text">Update your details below. Remember to save your changes when finished.</div>
+              </div>
+            </div>
+            <div class="edit-banner-actions">
+              <button type="button" id="btn-cancel-top" class="btn btn-secondary btn-sm">Cancel</button>
+              <button type="button" id="btn-save-top" class="btn btn-primary btn-sm">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Save Changes</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hero Profile Card -->
+        <section class="profile-hero-card" aria-label="Profile Header">
+          <div class="profile-hero-cover"></div>
+          <div class="profile-hero-content">
+            <div class="profile-hero-user-group">
+              <!-- Avatar -->
+              <div class="profile-avatar-wrapper">
+                <img id="profile-avatar-img" class="profile-avatar-img" src="assets/images/avatar.jpg" alt="Profile Picture">
+                <div id="profile-avatar-fallback" class="profile-avatar-fallback" style="display: none;">AS</div>
+                <div class="profile-avatar-badge" title="Active Account"></div>
+                <button type="button" id="btn-change-avatar" class="btn-change-avatar" title="Change avatar photo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>Change</span>
+                </button>
+              </div>
+
+              <!-- Identity Details -->
+              <div class="profile-identity">
+                <div class="profile-name-row">
+                  <span id="profile-full-name-header" class="profile-full-name">Ananya Sharma</span>
+                  <span class="verified-badge">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Verified</span>
+                  </span>
+                </div>
+                <div class="profile-headline-details">
+                  <span class="profile-meta-item">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span id="profile-role-header">Lead Product Designer</span>
+                  </span>
+                  <span class="profile-meta-item">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span id="profile-email-header">ananya.sharma@example.com</span>
+                  </span>
+                  <span class="profile-meta-item">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span id="profile-dept-header">Product & Design Experience</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Primary Action Button -->
+            <div class="profile-hero-actions">
+              <button type="button" id="btn-edit-profile" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                <span>Edit Profile</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="profile-tabs-bar" aria-label="Profile Sections">
+          <button type="button" class="profile-tab-button active" data-tab="personal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Personal Information</span>
+          </button>
+          <button type="button" class="profile-tab-button" data-tab="security">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Security & Passwords</span>
+          </button>
+          <button type="button" class="profile-tab-button" data-tab="preferences">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span>Preferences & Regional</span>
+          </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- TAB PANE 1: PERSONAL INFORMATION           -->
+        <!-- ========================================== -->
+        <div id="pane-personal" class="tab-pane active">
+          <div class="profile-sections-layout">
+
+            <!-- Left Main Column -->
+            <div class="profile-main-column">
+
+              <!-- Card 1: Personal Information -->
+              <article class="profile-card" id="card-personal-info">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Personal Information</h2>
+                      <p class="card-subtitle">Your identity details, contact information, and residence location.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VIEW MODE: Personal Information -->
+                <div id="personal-info-view" class="profile-content-container">
+                  <div class="form-grid-two-columns">
+                    
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                      <label class="form-label">Full Name</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                          </svg>
+                          <span id="view-full-name">Ananya Sharma</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                      <label class="form-label">Email Address</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                          </svg>
+                          <span id="view-email">ananya.sharma@example.com</span>
+                        </div>
+                        <button type="button" class="copy-chip-btn" data-copy-target="view-email" title="Copy email address" aria-label="Copy email">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Phone Number Field -->
+                    <div class="form-group">
+                      <label class="form-label">Phone Number</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                          </svg>
+                          <span id="view-phone">+91 98765 43210</span>
+                        </div>
+                        <button type="button" class="copy-chip-btn" data-copy-target="view-phone" title="Copy phone number" aria-label="Copy phone">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Date of Birth Field -->
+                    <div class="form-group">
+                      <label class="form-label">Date of Birth</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                          </svg>
+                          <span id="view-dob">August 14, 1995</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                      <label class="form-label">Gender</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="M12 3a9 9 0 0 0 0 18v-9"></path>
+                          </svg>
+                          <span id="view-gender">Female</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Location Field -->
+                    <div class="form-group">
+                      <label class="form-label">Location</label>
+                      <div class="view-field-box">
+                        <div class="view-field-content">
+                          <svg class="view-field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                          </svg>
+                          <span id="view-location">Bangalore, Karnataka, India</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- EDIT MODE: Personal Information (Wrapped in the form) -->
+                <div id="personal-info-edit" style="display: none;">
+                  <form id="profile-edit-form" novalidate>
+                    <div class="form-grid-two-columns">
+
+                      <!-- Full Name Input -->
+                      <div class="form-group">
+                        <label for="input-full-name" class="form-label">
+                          <span>Full Name <span class="required-indicator">*</span></span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                              <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                          </span>
+                          <input type="text" id="input-full-name" name="full_name" class="form-input" placeholder="e.g. Ananya Sharma" required minlength="3" maxlength="70" autocomplete="name">
+                        </div>
+                        <div class="field-error-message"></div>
+                        <span class="field-hint">Minimum 3 characters. Must match legal identification.</span>
+                      </div>
+
+                      <!-- Email Input -->
+                      <div class="form-group">
+                        <label for="input-email" class="form-label">
+                          <span>Email Address <span class="required-indicator">*</span></span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                              <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                          </span>
+                          <input type="email" id="input-email" name="email" class="form-input" placeholder="e.g. ananya@company.com" required autocomplete="email">
+                        </div>
+                        <div class="field-error-message"></div>
+                        <span class="field-hint">Used for system notifications and authentication.</span>
+                      </div>
+
+                      <!-- Phone Input -->
+                      <div class="form-group">
+                        <label for="input-phone" class="form-label">
+                          <span>Phone Number <span class="required-indicator">*</span></span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                          </span>
+                          <input type="tel" id="input-phone" name="phone" class="form-input" placeholder="+91 98765 43210 or 9876543210" required autocomplete="tel">
+                        </div>
+                        <div class="field-error-message"></div>
+                        <span class="field-hint">Standard 10-digit Indian phone number.</span>
+                      </div>
+
+                      <!-- Date of Birth Input -->
+                      <div class="form-group">
+                        <label for="input-dob" class="form-label">
+                          <span>Date of Birth</span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                              <line x1="16" y1="2" x2="16" y2="6"></line>
+                              <line x1="8" y1="2" x2="8" y2="6"></line>
+                              <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                          </span>
+                          <input type="date" id="input-dob" name="date_of_birth" class="form-input" max="2020-01-01">
+                        </div>
+                        <div class="field-error-message"></div>
+                        <span class="field-hint">Cannot be in the future.</span>
+                      </div>
+
+                      <!-- Gender Select -->
+                      <div class="form-group">
+                        <label for="input-gender" class="form-label">
+                          <span>Gender</span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="9"></circle>
+                              <path d="M12 3a9 9 0 0 0 0 18v-9"></path>
+                            </svg>
+                          </span>
+                          <select id="input-gender" name="gender" class="form-select">
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Non-Binary">Non-Binary</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                        <div class="field-error-message"></div>
+                      </div>
+
+                      <!-- Location Input -->
+                      <div class="form-group">
+                        <label for="input-location" class="form-label">
+                          <span>Location / City</span>
+                        </label>
+                        <div class="input-with-icon-wrapper">
+                          <span class="input-left-icon">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                              <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                          </span>
+                          <input type="text" id="input-location" name="location" class="form-input" placeholder="e.g. Bangalore, Karnataka, India" maxlength="120">
+                        </div>
+                        <div class="field-error-message"></div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </article>
+
+              <!-- Card 2: Additional Information & Bio -->
+              <article class="profile-card" id="card-additional-info">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Additional Information & Bio</h2>
+                      <p class="card-subtitle">Professional summary, organizational role, and regional preferences.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VIEW MODE: Additional Info -->
+                <div id="additional-info-view" class="profile-content-container">
+                  <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label">About / Bio</label>
+                    <div class="view-field-box" style="align-items: flex-start; padding: 1rem 1.25rem;">
+                      <p id="view-bio" style="line-height: 1.6; color: var(--text-primary); font-size: 0.925rem;">
+                        Lead Product Designer and design systems lead. Passionate about crafting accessible digital experiences, design tokens, and human-centered user workflows.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="form-grid-two-columns">
+                    <div class="form-group">
+                      <label class="form-label">Job Title / Role</label>
+                      <div class="view-field-box">
+                        <span id="view-role">Lead Product Designer</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Department</label>
+                      <div class="view-field-box">
+                        <span id="view-department">Product & Design Experience</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Timezone</label>
+                      <div class="view-field-box">
+                        <span id="view-timezone">Asia/Kolkata (IST)</span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Preferred Language</label>
+                      <div class="view-field-box">
+                        <span id="view-language">English (India)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- EDIT MODE: Additional Info -->
+                <div id="additional-info-edit" style="display: none;">
+                  <div class="form-group form-grid-full-width" style="margin-bottom: 1.5rem;">
+                    <label for="input-bio" class="form-label">
+                      <span>About / Bio</span>
+                      <span id="bio-char-counter" class="char-counter">0 / 500 characters</span>
+                    </label>
+                    <textarea id="input-bio" name="bio" form="profile-edit-form" class="form-textarea" placeholder="Share a few sentences about your role, achievements, or background..." maxlength="500"></textarea>
+                    <div class="field-error-message"></div>
+                  </div>
+
+                  <div class="form-grid-two-columns">
+                    <!-- Role -->
+                    <div class="form-group">
+                      <label for="input-role" class="form-label">Role / Job Title</label>
+                      <input type="text" id="input-role" name="role" form="profile-edit-form" class="form-input form-input-no-icon" placeholder="e.g. Senior Software Engineer">
+                    </div>
+
+                    <!-- Department -->
+                    <div class="form-group">
+                      <label for="input-department" class="form-label">Department</label>
+                      <input type="text" id="input-department" name="department" form="profile-edit-form" class="form-input form-input-no-icon" placeholder="e.g. Engineering">
+                    </div>
+
+                    <!-- Timezone -->
+                    <div class="form-group">
+                      <label for="input-timezone" class="form-label">Timezone</label>
+                      <select id="input-timezone" name="timezone" form="profile-edit-form" class="form-select form-input-no-icon">
+                        <option value="Asia/Kolkata (IST)">Asia/Kolkata (IST - UTC+05:30)</option>
+                        <option value="America/New_York (EST)">America/New_York (EST - UTC-05:00)</option>
+                        <option value="America/Los_Angeles (PST)">America/Los_Angeles (PST - UTC-08:00)</option>
+                        <option value="Europe/London (GMT)">Europe/London (GMT - UTC+00:00)</option>
+                        <option value="Asia/Singapore (SGT)">Asia/Singapore (SGT - UTC+08:00)</option>
+                        <option value="Asia/Tokyo (JST)">Asia/Tokyo (JST - UTC+09:00)</option>
+                      </select>
+                    </div>
+
+                    <!-- Language -->
+                    <div class="form-group">
+                      <label for="input-language" class="form-label">Preferred Language</label>
+                      <select id="input-language" name="language" form="profile-edit-form" class="form-select form-input-no-icon">
+                        <option value="English (India)">English (India)</option>
+                        <option value="English (United States)">English (United States)</option>
+                        <option value="English (United Kingdom)">English (United Kingdom)</option>
+                        <option value="Hindi (हिंदी)">Hindi (हिंदी)</option>
+                        <option value="Spanish (Español)">Spanish (Español)</option>
+                        <option value="French (Français)">French (Français)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Form Bottom Actions -->
+                  <div class="form-actions-footer">
+                    <button type="button" id="btn-cancel-bottom" class="btn btn-secondary">Cancel</button>
+                    <button type="button" id="btn-save-bottom" class="btn btn-primary">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Save Changes</span>
+                    </button>
+                  </div>
+                </div>
+
+              </article>
+
+            </div>
+
+            <!-- Right Side Column: Stats & Status -->
+            <aside class="profile-side-column" aria-label="Account Overview and Security">
+              
+              <!-- Account Overview Card -->
+              <div class="profile-card">
+                <div class="card-header-row" style="margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                  <div class="card-title-group">
+                    <h3 class="card-title" style="font-size: 1rem;">Profile Completion</h3>
+                  </div>
+                  <span id="profile-completion-percent" class="completion-percentage">100%</span>
+                </div>
+
+                <div class="completion-progress-wrapper">
+                  <div class="progress-track">
+                    <div id="completion-progress-bar" class="progress-bar-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                  Keep your details updated so your colleagues and team leads can reach you effectively.
+                </p>
+
+                <div class="side-stat-item">
+                  <span class="side-stat-label">Account Status</span>
+                  <span class="side-stat-value" style="color: var(--success-solid); display: inline-flex; align-items: center; gap: 4px;">
+                    <span style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--success-solid);"></span>
+                    Active & Verified
+                  </span>
+                </div>
+
+                <div class="side-stat-item">
+                  <span class="side-stat-label">Member Since</span>
+                  <span id="stat-created-at" class="side-stat-value">Aug 2024</span>
+                </div>
+
+                <div class="side-stat-item">
+                  <span class="side-stat-label">Last Profile Update</span>
+                  <span id="stat-updated-at" class="side-stat-value">Just now</span>
+                </div>
+              </div>
+
+              <!-- Security & Data Privacy Notice -->
+              <div class="profile-card" style="background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-alt));">
+                <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.75rem;">
+                  <div style="width: 30px; height: 30px; border-radius: var(--radius-sm); background-color: var(--primary-50); color: var(--primary-600); display: flex; align-items: center; justify-content: center;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                  </div>
+                  <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">Privacy & Access Control</h4>
+                </div>
+                <p style="font-size: 0.825rem; color: var(--text-secondary); line-height: 1.5;">
+                  Your personal records are protected under enterprise-grade encryption. Sensitive credentials such as passwords and security tokens are stored using salted cryptographic hashes and never shared.
+                </p>
+              </div>
+
+            </aside>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB PANE 2: SECURITY & PASSWORDS / AUTH    -->
+        <!-- ========================================== -->
+        <div id="pane-security" class="tab-pane">
+          <div class="profile-sections-layout">
+            <div class="profile-main-column">
+
+              <!-- Change Password Card -->
+              <article class="profile-card">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Change Password</h2>
+                      <p class="card-subtitle">Ensure your account uses a strong, unique password to prevent unauthorized access.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <form id="form-change-password">
+                  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+
+                    <!-- Current Password -->
+                    <div class="form-group">
+                      <label for="input-current-password" class="form-label">
+                        <span>Current Password <span class="required-indicator">*</span></span>
+                      </label>
+                      <div class="password-input-group">
+                        <input type="password" id="input-current-password" class="form-input form-input-no-icon" placeholder="Enter your current password" required autocomplete="current-password">
+                        <button type="button" class="btn-toggle-password" data-target="input-current-password" aria-label="Toggle password visibility">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </button>
+                      </div>
+                      <span class="field-hint">Default seeded demo password is: <code>SecurePass@123</code></span>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="form-group">
+                      <label for="input-new-password" class="form-label">
+                        <span>New Password <span class="required-indicator">*</span></span>
+                      </label>
+                      <div class="password-input-group">
+                        <input type="password" id="input-new-password" class="form-input form-input-no-icon" placeholder="Minimum 8 characters" required minlength="8" autocomplete="new-password">
+                        <button type="button" class="btn-toggle-password" data-target="input-new-password" aria-label="Toggle password visibility">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </button>
+                      </div>
+
+                      <!-- Password Strength Bar -->
+                      <div class="password-strength-container">
+                        <div class="password-strength-track">
+                          <div class="strength-bar-segment"></div>
+                          <div class="strength-bar-segment"></div>
+                          <div class="strength-bar-segment"></div>
+                          <div class="strength-bar-segment"></div>
+                        </div>
+                        <div id="strength-label" class="strength-label">Strength: None</div>
+                      </div>
+                    </div>
+
+                    <!-- Confirm New Password -->
+                    <div class="form-group">
+                      <label for="input-confirm-password" class="form-label">
+                        <span>Confirm New Password <span class="required-indicator">*</span></span>
+                      </label>
+                      <div class="password-input-group">
+                        <input type="password" id="input-confirm-password" class="form-input form-input-no-icon" placeholder="Re-enter your new password" required autocomplete="new-password">
+                        <button type="button" class="btn-toggle-password" data-target="input-confirm-password" aria-label="Toggle password visibility">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 0.75rem;">
+                      <button type="submit" id="btn-update-password" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Update Password</span>
+                      </button>
+                    </div>
+
+                  </div>
+                </form>
+              </article>
+
+              <!-- Two-Factor Authentication Card -->
+              <article class="profile-card">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Two-Factor Authentication (2FA)</h2>
+                      <p class="card-subtitle">Add an extra layer of protection to your account with time-based verification codes.</p>
+                    </div>
+                  </div>
+                  <span id="badge-2fa-status" class="nav-badge-pill">Disabled</span>
+                </div>
+
+                <div class="toggle-switch-group">
+                  <div class="toggle-label-group">
+                    <span class="toggle-label-title">Require 2FA verification for sign-in</span>
+                    <span class="toggle-label-desc">When enabled, you must provide a secure verification token in addition to your password.</span>
+                  </div>
+                  <label class="toggle-switch" aria-label="Toggle Two-Factor Authentication">
+                    <input type="checkbox" id="toggle-2fa-input">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </article>
+
+              <!-- Connected Devices & Sessions Card -->
+              <article class="profile-card">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Active Devices & Sessions</h2>
+                      <p class="card-subtitle">Devices currently authenticated and signed in to this account.</p>
+                    </div>
+                  </div>
+                  <button type="button" id="btn-revoke-sessions" class="btn btn-secondary btn-sm" style="color: var(--error-solid); border-color: var(--error-border);">
+                    Sign Out Other Devices
+                  </button>
+                </div>
+
+                <!-- Current Device -->
+                <div class="device-item-card">
+                  <div class="device-info-group">
+                    <div class="device-icon-box">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="device-name">
+                        <span>Chrome on Windows 11</span>
+                        <span class="badge-current-device">This Device</span>
+                      </div>
+                      <div class="device-meta">Bangalore, Karnataka, India • Active Now • IP 127.0.0.1</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Secondary Demo Device -->
+                <div class="device-item-card" id="device-card-mobile">
+                  <div class="device-info-group">
+                    <div class="device-icon-box">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="device-name">
+                        <span>Safari on iPhone 15 Pro</span>
+                      </div>
+                      <div class="device-meta">Bangalore, India • Last active 2 hours ago</div>
+                    </div>
+                  </div>
+                </div>
+
+              </article>
+
+            </div>
+
+            <!-- Right Column: Audit Logs -->
+            <aside class="profile-side-column">
+              <div class="profile-card">
+                <div class="card-header-row" style="margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                  <h3 class="card-title" style="font-size: 1rem;">Security Audit Trail</h3>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+                  Recent security events and authentication changes registered for your profile.
+                </p>
+
+                <div id="security-activity-list" class="activity-list-container">
+                  <!-- Populated by security.js -->
+                </div>
+              </div>
+            </aside>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB PANE 3: PREFERENCES & REGIONAL         -->
+        <!-- ========================================== -->
+        <div id="pane-preferences" class="tab-pane">
+          <div class="profile-sections-layout">
+            <div class="profile-main-column">
+
+              <!-- Preferences Form Card -->
+              <article class="profile-card">
+                <div class="card-header-row">
+                  <div class="card-title-group">
+                    <div class="card-title-icon-box" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h2 class="card-title">Localization & Regional Preferences</h2>
+                      <p class="card-subtitle">Adjust your workspace timezone, language, and date format.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <form id="form-preferences">
+                  <div class="form-grid-two-columns" style="margin-bottom: 2rem;">
+                    
+                    <!-- Timezone -->
+                    <div class="form-group">
+                      <label for="pref-timezone" class="form-label">Timezone</label>
+                      <select id="pref-timezone" class="form-select form-input-no-icon">
+                        <option value="Asia/Kolkata (IST)">Asia/Kolkata (IST - UTC+05:30)</option>
+                        <option value="America/New_York (EST)">America/New_York (EST - UTC-05:00)</option>
+                        <option value="America/Los_Angeles (PST)">America/Los_Angeles (PST - UTC-08:00)</option>
+                        <option value="Europe/London (GMT)">Europe/London (GMT - UTC+00:00)</option>
+                        <option value="Asia/Singapore (SGT)">Asia/Singapore (SGT - UTC+08:00)</option>
+                        <option value="Asia/Tokyo (JST)">Asia/Tokyo (JST - UTC+09:00)</option>
+                      </select>
+                    </div>
+
+                    <!-- Language -->
+                    <div class="form-group">
+                      <label for="pref-language" class="form-label">Display Language</label>
+                      <select id="pref-language" class="form-select form-input-no-icon">
+                        <option value="English (India)">English (India)</option>
+                        <option value="English (United States)">English (United States)</option>
+                        <option value="English (United Kingdom)">English (United Kingdom)</option>
+                        <option value="Hindi (हिंदी)">Hindi (हिंदी)</option>
+                        <option value="Spanish (Español)">Spanish (Español)</option>
+                        <option value="French (Français)">French (Français)</option>
+                      </select>
+                    </div>
+
+                    <!-- Date Format -->
+                    <div class="form-group">
+                      <label for="pref-date-format" class="form-label">Date Format</label>
+                      <select id="pref-date-format" class="form-select form-input-no-icon">
+                        <option value="DD/MM/YYYY">DD/MM/YYYY (e.g., 30/09/2026)</option>
+                        <option value="MM/DD/YYYY">MM/DD/YYYY (e.g., 09/30/2026)</option>
+                        <option value="YYYY-MM-DD">YYYY-MM-DD (e.g., 2026-09-30)</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <!-- Notification Preferences -->
+                  <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-subtle);">
+                    Notification Preferences
+                  </h3>
+
+                  <div class="toggle-switch-group">
+                    <div class="toggle-label-group">
+                      <span class="toggle-label-title">Email Notifications</span>
+                      <span class="toggle-label-desc">Receive activity summaries, mentions, and system updates to your registered email.</span>
+                    </div>
+                    <label class="toggle-switch" aria-label="Toggle Email Notifications">
+                      <input type="checkbox" id="pref-email-notifs" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <div class="toggle-switch-group">
+                    <div class="toggle-label-group">
+                      <span class="toggle-label-title">Security & Sign-in Alerts</span>
+                      <span class="toggle-label-desc">Receive immediate notifications whenever a new login or password modification occurs.</span>
+                    </div>
+                    <label class="toggle-switch" aria-label="Toggle Security Alerts">
+                      <input type="checkbox" id="pref-security-notifs" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <div style="display: flex; justify-content: flex-end; margin-top: 1.75rem;">
+                    <button type="submit" id="btn-save-preferences" class="btn btn-primary">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                      <span>Save Preferences</span>
+                    </button>
+                  </div>
+                </form>
+              </article>
+
+            </div>
+
+            <!-- Side column -->
+            <aside class="profile-side-column">
+              <div class="profile-card">
+                <div class="card-header-row" style="margin-bottom: 1rem; padding-bottom: 0.75rem;">
+                  <h3 class="card-title" style="font-size: 1rem;">System Theme</h3>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                  Choose your visual appearance mode. Your selection is automatically saved for future visits.
+                </p>
+                <div style="display: flex; gap: 0.75rem;">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="setTheme('light'); localStorage.setItem('app_theme', 'light');" style="flex: 1;">
+                    ☀️ Light
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="setTheme('dark'); localStorage.setItem('app_theme', 'dark');" style="flex: 1;">
+                    🌙 Dark
+                  </button>
+                </div>
+              </div>
+            </aside>
+
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB PANE 4: DASHBOARD OVERVIEW             -->
+        <!-- ========================================== -->
+        <div id="pane-dashboard" class="tab-pane">
+          <!-- Metrics Grid -->
+          <div class="dashboard-metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Profile Completeness</span>
+                <div class="metric-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value">100%</div>
+              <div class="metric-trend">
+                <span>All mandatory fields verified</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Security Health</span>
+                <div class="metric-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" style="color: var(--success-solid);">Strong</div>
+              <div class="metric-trend">
+                <span>Encrypted & Protected</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Active Devices</span>
+                <div class="metric-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value">2</div>
+              <div class="metric-trend">
+                <span>Windows 11 & iPhone 15</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Account Role</span>
+                <div class="metric-icon-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" style="font-size: 1.25rem;">Staff Lead</div>
+              <div class="metric-trend">
+                <span>Product & Design Experience</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shortcuts Card -->
+          <article class="profile-card" style="margin-bottom: 2rem;">
+            <div class="card-header-row">
+              <div class="card-title-group">
+                <h2 class="card-title">Quick Actions</h2>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+              <a href="#personal" onclick="window.location.hash='personal';" class="view-field-box" style="cursor: pointer; text-decoration: none;">
+                <div class="view-field-content">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                  <span>Edit Personal Information</span>
+                </div>
+              </a>
+
+              <a href="#security" onclick="window.location.hash='security';" class="view-field-box" style="cursor: pointer; text-decoration: none;">
+                <div class="view-field-content">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>Update Password & 2FA</span>
+                </div>
+              </a>
+
+              <a href="#preferences" onclick="window.location.hash='preferences';" class="view-field-box" style="cursor: pointer; text-decoration: none;">
+                <div class="view-field-content">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary-600);">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                  <span>Regional & Notifications</span>
+                </div>
+              </a>
+            </div>
+          </article>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/toast.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/validation.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
